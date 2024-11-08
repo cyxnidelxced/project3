@@ -197,12 +197,6 @@ button:hover {
     display: none;
 }
 
-#reveal-murderer-btn {
-    display: block; /* Ensure it's not set to 'none' by default */
-    visibility: visible; /* Ensure it's not set to 'hidden' by default */
-}
-
-
 .reveal-box {
     text-align: center;
 }

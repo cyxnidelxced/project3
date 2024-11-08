@@ -6,49 +6,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const suspectName = document.getElementById('suspect-name');
     const suspectDescription = document.getElementById('suspect-description');
     const suspectMotive = document.getElementById('suspect-motive');
-    const revealMurdererBtn = document.getElementById('reveal-murderer-btn');  // Reveal button
+    const revealMurdererBtn = document.getElementById('reveal-murderer-btn');
     const revealVideoWrapper = document.getElementById('reveal-video-wrapper');
     const mainVideoWrapper = document.getElementById('main-video-wrapper');
     const victimInfo = document.getElementById('victim-info');
     const suspectInfo = document.getElementById('suspect-info');
-    const goBackButton = document.getElementById('go-back-btn');
-    const suspectButtons = document.querySelectorAll('.suspect-btn');
-    const suspectsHeading = document.getElementById('suspects-heading');
-    const suspectProfileHeading = document.getElementById('suspect-info').querySelector('h2');
+    const goBackButton = document.getElementById('go-back-btn');  // Button to go back to main video
+    const suspectButtons = document.querySelectorAll('.suspect-btn'); // Buttons for Boyfriend, Friend, and Roommate
+    const suspectsHeading = document.getElementById('suspects-heading'); // Heading for suspects
+    const suspectProfileHeading = document.getElementById('suspect-info').querySelector('h2'); // Suspect Profile Heading
 
-    // Define cue points (Remove the "reveal" cue point for now)
+    // Define cue points with suspect data and clues
     const cuePoints = [
-        { time: 77, suspect: 'Friend', description: 'Tess is a friend of Maddie. She designs her own line of lipstick. According to her, she hurt her wrist at the gym.', motive: 'Maddie stole her lipstick.' },
-        { time: 139, suspect: 'Roommate', description: 'Morgan is the roommate. She works for long hours due to Maddie not paying rent as she is supposed to. She had to skip classes due to her work hours, making her annoyed and bitter.', motive: 'Frustration at the fact that Maddie is not a good roommate.' },
-        { time: 214, suspect: 'Boyfriend', description: 'Regan is the boyfriend. He seems to be the only one committed to the relationship.', motive: 'Not happy when all Maddie pays attention to is her work and not their relationship. Jealous that his girlfriend only cares about her fans.' },
-        { time: 77, clue: 'Stamp from Lila Lounge', updateProfile: 'Friend' },
-        { time: 139, clue: 'Nail polish', updateProfile: 'Roommate' },
-        { time: 214, clue: 'Strangulation marks on neck', updateProfile: 'Boyfriend' },
+    { time: 77, suspect: 'Friend', description: 'Tess is a friend of Maddie. She designs her own line of lipstick. According to her, she hurt her wrist at the gym.', motive: 'Maddie stole her lipstick.' },
+    { time: 139, suspect: 'Roommate', description: 'Morgan is the roommate. She works for long hours due to Maddie not paying rent as she is supposed to. She had to skip classes do to her work hours, making her annoyed and bitter.', motive: 'Fustration at the fact that Maddie is not a good roommate.' },
+    { time: 214, suspect: 'Boyfriend', description: 'Regan is the boyfriend. He seems to be the only one committed to the relationship.', motive: 'Not happy when all Maddie pays attention to is her work and not their relationship. Jealous that his girlfriend is only cares about her fans.' },
+    { time: 77, clue: 'Stamp from Lila Lounge', updateProfile: 'Friend', reveal: false },
+    { time: 139, clue: 'Nail polish', updateProfile: 'Roommate', reveal: false },
+    { time: 214, clue: 'Strangulation marks on neck', updateProfile: 'Boyfriend', reveal: false },
+    { time: 281, reveal: true }
     ];
 
     // Button event listeners to jump to corresponding time in the video
     document.getElementById('friend-btn').addEventListener('click', () => {
-        video.currentTime = 77; // Jump to the friend section (77 seconds)
+        video.currentTime = 77; // Jump to the boyfriend section (77 seconds)
     });
 
     document.getElementById('roommate-btn').addEventListener('click', () => {
-        video.currentTime = 139; // Jump to the roommate section (139 seconds)
+        video.currentTime = 139; // Jump to the friend section (139 seconds)
     });
 
     document.getElementById('boyfriend-btn').addEventListener('click', () => {
-        video.currentTime = 214; // Jump to the boyfriend section (214 seconds)
+        video.currentTime = 214; // Jump to the roommate section (214 seconds)
     });
 
     // Function to trigger the glow effect
     function triggerGlowEffect() {
+        // Apply the glow effect to the entire UI
         const uiWrapper = document.querySelector('.ui-wrapper');
         const infoBoxes = document.querySelectorAll('.info-box');
         const heading = document.getElementById('suspects-heading');
-
+            
+        // Add the glowing class to trigger the animation
         uiWrapper.classList.add('glowing');
         heading.classList.add('glowing');
         infoBoxes.forEach(box => box.classList.add('glowing'));
-
+    
+        // Remove the glowing effect after 3 seconds
         setTimeout(() => {
             uiWrapper.classList.remove('glowing');
             heading.classList.remove('glowing');
@@ -60,9 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
     video.addEventListener('timeupdate', () => {
         let currentTime = video.currentTime;
 
+        // Check if any cue points match
         cuePoints.forEach((cue, index) => {
-            if (currentTime >= cue.time && currentTime <= cue.time + 2) { 
+            if (currentTime >= cue.time && currentTime <= cue.time + 2) { // Triggered within a 2-second range
                 if (cue.suspect) {
+                    // Update the UI to show the suspect's profile
                     suspectName.textContent = cue.suspect;
                     suspectDescription.textContent = cue.description;
                     suspectMotive.textContent = 'Motive: ' + cue.motive;
@@ -72,7 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (cue.clue) {
+                    // Show the clue text
                     clueText.textContent = cue.clue;
+                }
+
+                if (cue.reveal) {
+                    // Show the button to reveal the murderer at the right cue point
+                    revealMurdererBtn.classList.remove('hidden');
                 }
 
                 // Apply glow effect for all cue points except the last one
@@ -85,78 +97,100 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show the murderer's reveal video when the "Reveal Murderer" button is clicked
     revealMurdererBtn.addEventListener('click', () => {
+        // Hide the main video and show the reveal video
         mainVideoWrapper.classList.add('hidden');
         revealVideoWrapper.classList.remove('hidden');
-
+    
+        // Hide suspect buttons and show 'Go Back' button
         suspectButtons.forEach(button => button.classList.add('hidden'));
         goBackButton.classList.remove('hidden');
-
+    
+        // Pause the main video when the reveal video is shown
         video.pause();
-
-        // Update the UI to show the murderer’s profile
-        suspectName.textContent = "Morgan";
-        suspectDescription.textContent = "The roommate is the murderer!";
-        suspectMotive.textContent = "She disguised herself and strangled Maddie with a ribbon from her teddy bear in her room.";
-
-        suspectsHeading.textContent = "The Killer";
-        suspectProfileHeading.textContent = "The Killer Profile";
-
+    
+        // Update the UI to show the murderer’s profile (this happens right before the reveal video starts)
+        suspectName.textContent = "Morgan";  // Murderer's name
+        suspectDescription.textContent = "The roommate is the murderer!";  // Description of the murderer
+        suspectMotive.textContent = "She disguised herself and strangled Maddie with a ribbon from her teddy bear in her room.";  // Motive of the murderer
+    
+        // Change the headings
+        suspectsHeading.textContent = "The Killer";  // Change "The Suspects" to "The Killer"
+        suspectProfileHeading.textContent = "The Killer Profile"; // Change "Suspect Profile" to "The Killer Profile"
+        
+        // Change in clue text
         clueText.textContent = 'Teddy Bear Ribbon';
 
-        // Ensure the reveal video is unmuted
+        // Ensure the reveal video is unmuted (if captions are enabled)
         const revealVideo = document.getElementById('reveal-video');
         revealVideo.muted = false;
-
+    
+        // Play the reveal video
         revealVideo.play();
-
+    
+        // Enable captions manually if needed
         const textTracks = revealVideo.textTracks;
         if (textTracks.length > 0) {
-            const track = textTracks[0];
-            track.mode = 'showing'; 
+            const track = textTracks[0];  // Assuming the first track is the subtitles
+            track.mode = 'showing';  // This ensures the subtitles are visible
         }
     });
 
     // When the reveal video ends, go back to the main video
     const revealVideo = document.getElementById('reveal-video');
     revealVideo.addEventListener('ended', () => {
+        // Reset the video to the beginning
         revealVideoWrapper.classList.add('hidden');
         mainVideoWrapper.classList.remove('hidden');
         video.currentTime = 0;
 
+        // Hide 'Go Back' button and show suspect buttons again
         goBackButton.classList.add('hidden');
         suspectButtons.forEach(button => button.classList.remove('hidden'));
 
+        // Play the main video from the beginning after the reveal video ends
         video.play();
 
-        suspectsHeading.textContent = "The Suspects";
-        suspectProfileHeading.textContent = "Suspect Profile";
+        // Reset the headings to their original state
+        suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
+        suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
     });
 
     // Button to go back to the main video
     goBackButton.addEventListener('click', () => {
+        // Hide the reveal video and show the main video again
         revealVideoWrapper.classList.add('hidden');
         mainVideoWrapper.classList.remove('hidden');
-
+    
+        // Reset the main video to its initial state (or you could set it to the last known position)
         video.currentTime = 0;
         video.play();
-
+    
+        // Hide 'Go Back' button and show suspect buttons again
         goBackButton.classList.add('hidden');
         suspectButtons.forEach(button => button.classList.remove('hidden'));
-
+    
+        // Hide the "Reveal Murderer" button again when going back
         revealMurdererBtn.classList.add('hidden');
-
-        suspectName.textContent = 'Maddie';
-        suspectDescription.textContent = 'A beauty vlogger who was found strangled to death.';
-        suspectMotive.textContent = 'Motive: Not applicable';
-
+    
+        // Reset the profile information to the victim's default state
+        suspectName.textContent = 'Maddie';  // Victim's name
+        suspectDescription.textContent = 'A beauty vlogger who was found strangled to death.';  // Victim's description
+        suspectMotive.textContent = 'Motive: Not applicable';  // No motive for the victim
+    
+        // Hide suspect info and show victim info again
         suspectInfo.classList.add('hidden');
         victimInfo.classList.remove('hidden');
-
+    
+        // Pause the reveal video and reset it to the start
         const revealVideo = document.getElementById('reveal-video');
         revealVideo.pause();
         revealVideo.currentTime = 0;
-
+    
+        // Reset the headings to their original state when going back to the main video
+        suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
+        suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
+    
+        // If there was any clue or reveal text, reset it to the initial state
         clueText.textContent = 'Waiting for a clue to appear...';
     });
 });
-
