@@ -1,0 +1,17 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const video = document.getElementById('murder-video');
+    const clueText = document.getElementById('clue-text');
+    const revealBox = document.getElementById('reveal-box');
+    const revealText = document.getElementById('reveal-text');
+    const suspectName = document.getElementById('suspect-name');
+    const suspectDescription = document.getElementById('suspect-description');
+    const suspectMotive = document.getElementById('suspect-motive');
+    const revealMurdererBtn = document.getElementById('reveal-murderer-btn');
+    const revealVideoWrapper = document.getElementById('reveal-video-wrapper');
+    const mainVideoWrapper = document.getElementById('main-video-wrapper');
+    const victimInfo = document.getElementById('victim-info');
+    const suspectInfo = document.getElementById('suspect-info');
+    const goBackButton = document.getElementById('go-back-btn');  // Button to go back to main video
+    const suspectButtons = document.querySelectorAll('.suspect-btn'); // Buttons for Boyfriend, Friend, and Roommate
+    const suspectsHeading = document.getElementById('suspects-heading'); // Heading for suspects
+    const suspectProfileHeading = document.getElementById('suspect-info').querySelector('h2'); // Suspect Profile Heading
