@@ -39,3 +39,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('boyfriend-btn').addEventListener('click', () => {
         video.currentTime = 214; // Jump to the roommate section (214 seconds)
     });
+
+    // Function to trigger the glow effect
+    function triggerGlowEffect() {
+        // Apply the glow effect to the entire UI
+        const uiWrapper = document.querySelector('.ui-wrapper');
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const heading = document.getElementById('suspects-heading');
+            
+        // Add the glowing class to trigger the animation
+        uiWrapper.classList.add('glowing');
+        heading.classList.add('glowing');
+        infoBoxes.forEach(box => box.classList.add('glowing'));
+    
+        // Remove the glowing effect after 3 seconds
+        setTimeout(() => {
+            uiWrapper.classList.remove('glowing');
+            heading.classList.remove('glowing');
+            infoBoxes.forEach(box => box.classList.remove('glowing'));
+        }, 3000);
+    }
