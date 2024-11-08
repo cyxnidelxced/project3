@@ -26,3 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { time: 214, clue: 'Strangulation marks on neck', updateProfile: 'Boyfriend', reveal: false },
     { time: 278, reveal: true }
     ];
+
+    // Button event listeners to jump to corresponding time in the video
+    document.getElementById('friend-btn').addEventListener('click', () => {
+        video.currentTime = 77; // Jump to the boyfriend section (77 seconds)
+    });
+
+    document.getElementById('roommate-btn').addEventListener('click', () => {
+        video.currentTime = 139; // Jump to the friend section (139 seconds)
+    });
+
+    document.getElementById('boyfriend-btn').addEventListener('click', () => {
+        video.currentTime = 214; // Jump to the roommate section (214 seconds)
+    });
