@@ -149,3 +149,39 @@ document.addEventListener("DOMContentLoaded", () => {
         suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
         suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
     });
+
+    // Button to go back to the main video
+    goBackButton.addEventListener('click', () => {
+        // Hide the reveal video and show the main video again
+        revealVideoWrapper.classList.add('hidden');
+        mainVideoWrapper.classList.remove('hidden');
+    
+        // Reset the main video to its initial state (or you could set it to the last known position)
+        video.currentTime = 0;
+        video.play();
+    
+        // Hide 'Go Back' button and show suspect buttons again
+        goBackButton.classList.add('hidden');
+        suspectButtons.forEach(button => button.classList.remove('hidden'));
+    
+        // Reset the profile information (to the default state, i.e., no suspect info)
+        suspectName.textContent = '';
+        suspectDescription.textContent = '';
+        suspectMotive.textContent = '';
+
+        // Hide suspect info and show victim info again
+        suspectInfo.classList.add('hidden');
+        victimInfo.classList.remove('hidden');
+    
+        // Pause the reveal video and reset it to the start
+        revealVideo.pause();
+        revealVideo.currentTime = 0;
+
+        // Reset the headings to their original state when going back to the main video
+        suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
+        suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
+
+        // If there was any clue or reveal text, reset it to the initial state
+        clueText.textContent = 'Waiting for a clue to appear...';
+    });
+});
