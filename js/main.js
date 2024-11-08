@@ -59,3 +59,40 @@ document.addEventListener("DOMContentLoaded", () => {
             infoBoxes.forEach(box => box.classList.remove('glowing'));
         }, 3000);
     }
+
+    // Event listener for time updates on the video
+    video.addEventListener('timeupdate', () => {
+        let currentTime = video.currentTime;
+    
+        // Check if any cue points match
+        cuePoints.forEach((cue, index) => {
+            if (currentTime >= cue.time && currentTime <= cue.time + 2) { // Triggered within a 2-second range
+                if (cue.suspect) {
+                    // Update the UI to show the suspect's profile
+                    suspectName.textContent = cue.suspect;
+                    suspectDescription.textContent = cue.description;
+                    suspectMotive.textContent = 'Motive: ' + cue.motive;
+    
+                    victimInfo.classList.add('hidden');
+                    suspectInfo.classList.remove('hidden');
+                }
+    
+                if (cue.clue) {
+                    // Show the clue text
+                    clueText.textContent = cue.clue;
+                }
+    
+                if (cue.reveal) {
+                    // Show the button to reveal the murderer
+                     revealMurdererBtn.classList.remove('hidden');
+                }
+    
+                // Apply glow effect for all cue points except the last one
+                if (index < cuePoints.length - 1) {
+                    triggerGlowEffect();
+                }
+            }
+        });
+    });
+
+
