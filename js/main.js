@@ -128,6 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
         // Play the reveal video
         revealVideo.play();
+
+         // Enable captions manually if needed
+        const textTracks = revealVideo.textTracks;
+        if (textTracks.length > 0) {
+            const track = textTracks[0];  // Assuming the first track is the subtitles
+            track.mode = 'showing';  // This ensures the subtitles are visible
+        }
     });
 
     // When the reveal video ends, go back to the main video
