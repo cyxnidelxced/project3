@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { time: 77, clue: 'Stamp from Lila Lounge', updateProfile: 'Friend', reveal: false },
     { time: 139, clue: 'Nail polish', updateProfile: 'Roommate', reveal: false },
     { time: 214, clue: 'Strangulation marks on neck', updateProfile: 'Boyfriend', reveal: false },
-    { time: 281, reveal: true }
+    { time: 280, reveal: true }
     ];
 
     // Button event listeners to jump to corresponding time in the video
