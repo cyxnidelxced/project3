@@ -130,4 +130,22 @@ document.addEventListener("DOMContentLoaded", () => {
         revealVideo.play();
     });
 
+    // When the reveal video ends, go back to the main video
+    const revealVideo = document.getElementById('reveal-video');
+    revealVideo.addEventListener('ended', () => {
+        // Reset the video to the beginning
+        revealVideoWrapper.classList.add('hidden');
+        mainVideoWrapper.classList.remove('hidden');
+        video.currentTime = 0;
 
+        // Hide 'Go Back' button and show suspect buttons again
+        goBackButton.classList.add('hidden');
+        suspectButtons.forEach(button => button.classList.remove('hidden'));
+
+        // Play the main video from the beginning after the reveal video ends
+        video.play();
+
+        // Reset the headings to their original state
+        suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
+        suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
+    });
