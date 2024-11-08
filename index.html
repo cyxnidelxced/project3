@@ -31,6 +31,49 @@
         </video>
     </div>
 
+    <!-- Interactive UI Elements -->
+    <div class="ui-wrapper">
+        <!-- Suspects Heading -->
+        <h2 id="suspects-heading">The Suspects</h2>
+        <div class="button-container">
+            <button id="friend-btn" class="suspect-btn">Friend</button>
+            <button id="roommate-btn" class="suspect-btn">Roommate</button>
+            <button id="boyfriend-btn" class="suspect-btn">Boyfriend</button>
+        </div>
+
+        <!-- Victim Profile (default) -->
+        <div id="victim-info" class="info-box">
+            <h2>Victim Profile</h2>
+            <div id="victim-details" class="suspect-profile">
+                <h3 id="victim-name">Maddie</h3>
+                <p id="victim-description">A beauty vlogger who was found strangled to death.</p>
+                <p id="victim-motive">Motive: Not applicable</p>
+                <p id="victim-evidence">Evidence: Under investigation</p>
+            </div>
+        </div>
+
+        <!-- Suspect Profiles (initially hidden) -->
+        <div id="suspect-info" class="info-box hidden">
+            <h2>Suspect Profiles</h2>
+            <div id="suspect-details" class="suspect-profile">
+                <h3 id="suspect-name">No suspect yet...</h3>
+                <p id="suspect-description">Waiting for the story to unfold...</p>
+                <p id="suspect-motive">Motive: Not available</p>
+            </div>
+        </div>
+
+        <div id="clue-box" class="info-box">
+            <h2>Clue</h2>
+            <p id="clue-text">Waiting for a clue to appear...</p>
+        </div>
+
+        <div id="reveal-box" class="reveal-box">
+            <h2>The Murderer is...</h2>
+        </div>
+
     
+        <button id="reveal-murderer-btn" class="hidden">Reveal Murderer</button>
+        <button id="go-back-btn" class="hidden">Go Back to Main Video</button>
+    </div>
 </body>
 </html>
