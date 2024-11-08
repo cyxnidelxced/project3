@@ -114,6 +114,27 @@ body {
     object-fit: cover; /* Ensures the video covers the entire area while maintaining aspect ratio */
 }
 
+/* Note Styling */
+.note {
+    text-align: center;
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.7);  /* Semi-transparent dark background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.3); /* Glow effect */
+}
+
+/* Optional: Add glowing effect */
+.note.glowing {
+    animation: glowEffect 3s ease-in-out infinite;
+}
+
+
+
 /* UI Wrapper */
 .ui-wrapper {
     flex: 1;

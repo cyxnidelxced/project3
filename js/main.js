@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cuePoints = [
     { time: 77, suspect: 'Friend', description: 'Tess is a friend of Maddie. She designs her own line of lipstick. According to her, she hurt her wrist at the gym.', motive: 'Maddie stole her lipstick.' },
     { time: 139, suspect: 'Roommate', description: 'Morgan is the roommate. She works for long hours due to Maddie not paying rent as she is supposed to. She had to skip classes do to her work hours, making her annoyed and bitter.', motive: 'Fustration at the fact that Maddie is not a good roommate.' },
-    { time: 214, suspect: 'Boyfriend', description: 'Regan is the boyfriend. He seems to be the only one committed to the relationship.', motive: 'Not happy when all Maddie pays attention to is her work and not their relationship. Love turn to hate?' },
+    { time: 214, suspect: 'Boyfriend', description: 'Regan is the boyfriend. He seems to be the only one committed to the relationship.', motive: 'Not happy when all Maddie pays attention to is her work and not their relationship. Jealous that his girlfriend is only cares about her fans.' },
     { time: 77, clue: 'Stamp from Lila Lounge', updateProfile: 'Friend', reveal: false },
     { time: 139, clue: 'Nail polish', updateProfile: 'Roommate', reveal: false },
     { time: 214, clue: 'Strangulation marks on neck', updateProfile: 'Boyfriend', reveal: false },
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event listener for time updates on the video
     video.addEventListener('timeupdate', () => {
         let currentTime = video.currentTime;
-    
+
         // Check if any cue points match
         cuePoints.forEach((cue, index) => {
             if (currentTime >= cue.time && currentTime <= cue.time + 2) { // Triggered within a 2-second range
@@ -72,21 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     suspectName.textContent = cue.suspect;
                     suspectDescription.textContent = cue.description;
                     suspectMotive.textContent = 'Motive: ' + cue.motive;
-    
+
                     victimInfo.classList.add('hidden');
                     suspectInfo.classList.remove('hidden');
                 }
-    
+
                 if (cue.clue) {
                     // Show the clue text
                     clueText.textContent = cue.clue;
                 }
-    
+
                 if (cue.reveal) {
-                    // Show the button to reveal the murderer
-                     revealMurdererBtn.classList.remove('hidden');
+                    // Show the button to reveal the murderer at the right cue point
+                    revealMurdererBtn.classList.remove('hidden');
                 }
-    
+
                 // Apply glow effect for all cue points except the last one
                 if (index < cuePoints.length - 1) {
                     triggerGlowEffect();
@@ -108,28 +108,26 @@ document.addEventListener("DOMContentLoaded", () => {
         // Pause the main video when the reveal video is shown
         video.pause();
     
-        // Update the UI to show the murderer’s profile
-        suspectName.textContent = "Morgan";  // Murderer name
-        suspectDescription.textContent = "The roommate is the murderer!";  // Description about the murderer
+        // Update the UI to show the murderer’s profile (this happens right before the reveal video starts)
+        suspectName.textContent = "Morgan";  // Murderer's name
+        suspectDescription.textContent = "The roommate is the murderer!";  // Description of the murderer
         suspectMotive.textContent = "She disguised herself and strangled Maddie with a ribbon from her teddy bear in her room.";  // Motive of the murderer
     
         // Change the headings
         suspectsHeading.textContent = "The Killer";  // Change "The Suspects" to "The Killer"
         suspectProfileHeading.textContent = "The Killer Profile"; // Change "Suspect Profile" to "The Killer Profile"
-
+        
         // Change in clue text
         clueText.textContent = 'Teddy Bear Ribbon';
-    
-        // Get the reveal video element and play it automatically
+
+        // Ensure the reveal video is unmuted (if captions are enabled)
         const revealVideo = document.getElementById('reveal-video');
-        
-        // Ensure the reveal video is unmuted
         revealVideo.muted = false;
     
         // Play the reveal video
         revealVideo.play();
-
-         // Enable captions manually if needed
+    
+        // Enable captions manually if needed
         const textTracks = revealVideo.textTracks;
         if (textTracks.length > 0) {
             const track = textTracks[0];  // Assuming the first track is the subtitles
@@ -171,23 +169,27 @@ document.addEventListener("DOMContentLoaded", () => {
         goBackButton.classList.add('hidden');
         suspectButtons.forEach(button => button.classList.remove('hidden'));
     
-        // Reset the profile information (to the default state, i.e., no suspect info)
-        suspectName.textContent = '';
-        suspectDescription.textContent = '';
-        suspectMotive.textContent = '';
-
+        // Hide the "Reveal Murderer" button again when going back
+        revealMurdererBtn.classList.add('hidden');
+    
+        // Reset the profile information to the victim's default state
+        suspectName.textContent = 'Maddie';  // Victim's name
+        suspectDescription.textContent = 'A beauty vlogger who was found strangled to death.';  // Victim's description
+        suspectMotive.textContent = 'Motive: Not applicable';  // No motive for the victim
+    
         // Hide suspect info and show victim info again
         suspectInfo.classList.add('hidden');
         victimInfo.classList.remove('hidden');
     
         // Pause the reveal video and reset it to the start
+        const revealVideo = document.getElementById('reveal-video');
         revealVideo.pause();
         revealVideo.currentTime = 0;
-
+    
         // Reset the headings to their original state when going back to the main video
         suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
         suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
-
+    
         // If there was any clue or reveal text, reset it to the initial state
         clueText.textContent = 'Waiting for a clue to appear...';
     });
