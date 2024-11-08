@@ -95,4 +95,39 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Show the murderer's reveal video when the "Reveal Murderer" button is clicked
+    revealMurdererBtn.addEventListener('click', () => {
+        // Hide the main video and show the reveal video
+        mainVideoWrapper.classList.add('hidden');
+        revealVideoWrapper.classList.remove('hidden');
+    
+        // Hide suspect buttons and show 'Go Back' button
+        suspectButtons.forEach(button => button.classList.add('hidden'));
+        goBackButton.classList.remove('hidden');
+    
+        // Pause the main video when the reveal video is shown
+        video.pause();
+    
+        // Update the UI to show the murderer’s profile
+        suspectName.textContent = "Morgan";  // Murderer name
+        suspectDescription.textContent = "The roommate is the murderer!";  // Description about the murderer
+        suspectMotive.textContent = "She disguised herself and strangled Maddie with a ribbon from her teddy bear in her room.";  // Motive of the murderer
+    
+        // Change the headings
+        suspectsHeading.textContent = "The Killer";  // Change "The Suspects" to "The Killer"
+        suspectProfileHeading.textContent = "The Killer Profile"; // Change "Suspect Profile" to "The Killer Profile"
+
+        // Change in clue text
+        clueText.textContent = 'Teddy Bear Ribbon';
+    
+        // Get the reveal video element and play it automatically
+        const revealVideo = document.getElementById('reveal-video');
+        
+        // Ensure the reveal video is unmuted
+        revealVideo.muted = false;
+    
+        // Play the reveal video
+        revealVideo.play();
+    });
+
 
