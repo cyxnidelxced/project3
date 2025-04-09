@@ -105,6 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
         suspectButtons.forEach(button => button.classList.add('hidden'));
         goBackButton.classList.remove('hidden');
     
+        // Hide the reveal murderer button
+        revealMurdererBtn.classList.add('hidden');
+        
+        // Hide the reveal box with "The Murderer is..." text
+        revealBox.classList.add('hidden');
+    
         // Pause the main video when the reveal video is shown
         video.pause();
     
@@ -147,6 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
         goBackButton.classList.add('hidden');
         suspectButtons.forEach(button => button.classList.remove('hidden'));
 
+        // Show the reveal box again
+        revealBox.classList.remove('hidden');
+
         // Play the main video from the beginning after the reveal video ends
         video.play();
 
@@ -171,6 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
         // Hide the "Reveal Murderer" button again when going back
         revealMurdererBtn.classList.add('hidden');
+        
+        // Show the reveal box again
+        revealBox.classList.remove('hidden');
     
         // Reset the profile information to the victim's default state
         suspectName.textContent = 'Maddie';  // Victim's name
