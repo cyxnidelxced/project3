@@ -141,27 +141,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // When the reveal video ends, go back to the main video
+    // When the reveal video ends
     const revealVideo = document.getElementById('reveal-video');
     revealVideo.addEventListener('ended', () => {
-        // Reset the video to the beginning
-        revealVideoWrapper.classList.add('hidden');
-        mainVideoWrapper.classList.remove('hidden');
-        video.currentTime = 0;
-
-        // Hide 'Go Back' button and show suspect buttons again
-        goBackButton.classList.add('hidden');
-        suspectButtons.forEach(button => button.classList.remove('hidden'));
-
-        // Show the reveal box again
-        revealBox.classList.remove('hidden');
-
-        // Play the main video from the beginning after the reveal video ends
-        video.play();
-
-        // Reset the headings to their original state
-        suspectsHeading.textContent = "The Suspects"; // Reset "The Killer" to "The Suspects"
-        suspectProfileHeading.textContent = "Suspect Profile"; // Reset "The Killer Profile" to "Suspect Profile"
+        // Show Go Back button more prominently if needed
+        goBackButton.classList.remove('hidden');
+        
+        // Do not automatically switch back to main video
+        // Do not automatically play the main video
+        
+        // Keep the murderer profile displayed
     });
 
     // Button to go back to the main video
@@ -170,9 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
         revealVideoWrapper.classList.add('hidden');
         mainVideoWrapper.classList.remove('hidden');
     
-        // Reset the main video to its initial state (or you could set it to the last known position)
+        // Reset the main video to its initial state but do NOT autoplay
         video.currentTime = 0;
-        video.play();
+        // Removed: video.play();
     
         // Hide 'Go Back' button and show suspect buttons again
         goBackButton.classList.add('hidden');
