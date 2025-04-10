@@ -124,35 +124,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+
     // Show the murderer's reveal video when the "Reveal Murderer" button is clicked
     revealMurdererBtn.addEventListener('click', () => {
+    
         // Hide the main video and show the reveal video
         mainVideoWrapper.classList.add('hidden');
         revealVideoWrapper.classList.remove('hidden');
-    
+
         // Hide suspect buttons and show 'Go Back' button
         suspectButtons.forEach(button => button.classList.add('hidden'));
         goBackButton.classList.remove('hidden');
-    
+
         // Hide the reveal murderer button
         revealMurdererBtn.classList.add('hidden');
-        
+    
         // Hide the reveal box with "The Murderer is..." text
         revealBox.classList.add('hidden');
-    
+
         // Pause the main video when the reveal video is shown
         video.pause();
-    
-        // Update the UI to show the murderer's profile (this happens right before the reveal video starts)
+
+        // Always show the killer profile, regardless of which cue points were hit
+        victimInfo.classList.add('hidden');
+        suspectInfo.classList.remove('hidden');
+
+        // Update the UI to show the murderer's profile
         suspectName.textContent = "Morgan";  // Murderer's name
         suspectDescription.textContent = "The roommate is the murderer!";  // Description of the murderer
         suspectMotive.textContent = "She disguised herself and strangled Maddie with a ribbon from her teddy bear in her room.";  // Motive of the murderer
-    
+
         // Change the headings
         suspectsHeading.textContent = "The Killer";  // Change "The Suspects" to "The Killer"
         suspectProfileHeading.textContent = "The Killer Profile"; // Change "Suspect Profile" to "The Killer Profile"
-        
-        // Change in clue text
+    
+        //Change in clue text
         clueText.textContent = 'Teddy Bear Ribbon';
 
         // Apply the killer reveal glow effect
@@ -161,10 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Ensure the reveal video is unmuted (if captions are enabled)
         const revealVideo = document.getElementById('reveal-video');
         revealVideo.muted = false;
-    
+
         // Play the reveal video
         revealVideo.play();
-    
+
         // Enable captions manually if needed
         const textTracks = revealVideo.textTracks;
         if (textTracks.length > 0) {
