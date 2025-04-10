@@ -232,6 +232,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add SVG decorations
     addSvgDecorations();
+    
+    // Initialize the three new features
+    setupBloodDropsAnimation();
+    setupCrimeSceneTape();
+    setupNoteTakingSystem();
 });
 
 // Define the function to add SVG decorations
@@ -378,5 +383,138 @@ function addSvgDecorations() {
     const revealMurdererBtn = document.getElementById('reveal-murderer-btn');
     revealMurdererBtn.addEventListener('click', () => {
         document.querySelector('.handprint').classList.add('reveal');
+    });
+}
+
+// Blood drops animation function
+function setupBloodDropsAnimation() {
+    // Creates blood drops that fall randomly from the top of the screen
+    function createBloodDrop() {
+        const drop = document.createElement('div');
+        
+        // Randomize drop size
+        const size = Math.random();
+        if (size < 0.3) {
+            drop.className = 'blood-drop small';
+        } else if (size > 0.8) {
+            drop.className = 'blood-drop large';
+        } else {
+            drop.className = 'blood-drop';
+        }
+        
+        // Random horizontal position
+        drop.style.left = Math.random() * 100 + 'vw';
+        
+        // Random fall speed (animation duration)
+        drop.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        
+        // Add to DOM
+        document.body.appendChild(drop);
+        
+        // Remove after animation completes to avoid memory leaks
+        setTimeout(() => {
+            if (drop && drop.parentNode) {
+                drop.parentNode.removeChild(drop);
+            }
+        }, parseFloat(drop.style.animationDuration) * 1000);
+    }
+    
+    // Create drops periodically, with some randomness
+    function scheduleNextDrop() {
+        // Random time between 1-3 seconds
+        const delay = Math.random() * 2000 + 1000;
+        
+        setTimeout(() => {
+            // Create 1-3 drops
+            const dropCount = Math.floor(Math.random() * 3) + 1;
+            for (let i = 0; i < dropCount; i++) {
+                setTimeout(createBloodDrop, i * 200); // Stagger multiple drops
+            }
+            
+            // Schedule the next drop
+            scheduleNextDrop();
+        }, delay);
+    }
+    
+    // Start the blood drops
+    scheduleNextDrop();
+}
+
+// Crime scene tape function
+function setupCrimeSceneTape() {
+    // Create the four border elements
+    const borders = ['top', 'right', 'bottom', 'left'];
+    
+    borders.forEach(position => {
+        const border = document.createElement('div');
+        border.className = `crime-scene-border ${position}`;
+        document.body.appendChild(border);
+    });
+    
+    // Function to show the crime scene tape
+    function showCrimeSceneTape() {
+        document.querySelectorAll('.crime-scene-border').forEach(border => {
+            border.classList.add('visible');
+        });
+    }
+    
+    // Function to hide the crime scene tape
+    function hideCrimeSceneTape() {
+        document.querySelectorAll('.crime-scene-border').forEach(border => {
+            border.classList.remove('visible');
+        });
+    }
+    
+    // Connect it to the reveal murderer button
+    const revealMurdererBtn = document.getElementById('reveal-murderer-btn');
+    revealMurdererBtn.addEventListener('click', () => {
+        showCrimeSceneTape();
+    });
+    
+    // Connect it to go back button (hide tape when going back)
+    const goBackButton = document.getElementById('go-back-btn');
+    goBackButton.addEventListener('click', () => {
+        hideCrimeSceneTape();
+    });
+}
+
+// Detective notes system function
+function setupNoteTakingSystem() {
+    // Create the note-taking section
+    const noteSection = document.createElement('div');
+    noteSection.className = 'note-section';
+    noteSection.innerHTML = `
+        <h3>Detective Notes</h3>
+        <textarea id="detective-notes" placeholder="Write your suspicions here..."></textarea>
+    `;
+    
+    // Append to UI after the clue box
+    const clueBox = document.getElementById('clue-box');
+    clueBox.parentNode.insertBefore(noteSection, clueBox.nextSibling);
+    
+    // Get the notes textarea
+    const notesTextarea = document.getElementById('detective-notes');
+    
+    // Save notes to localStorage when typing
+    notesTextarea.addEventListener('input', () => {
+        localStorage.setItem('detectiveNotes', notesTextarea.value);
+    });
+    
+    // Load previously saved notes if they exist
+    const savedNotes = localStorage.getItem('detectiveNotes');
+    if (savedNotes) {
+        notesTextarea.value = savedNotes;
+    }
+    
+    // Add a toggle button to show/hide notes (optional)
+    const toggleButton = document.createElement('button');
+    toggleButton.className = 'toggle-notes';
+    toggleButton.textContent = 'Hide Notes';
+    noteSection.appendChild(toggleButton);
+    
+    // Toggle notes visibility
+    toggleButton.addEventListener('click', () => {
+        notesTextarea.classList.toggle('hidden');
+        toggleButton.textContent = notesTextarea.classList.contains('hidden') ? 'Show Notes' : 'Hide Notes';
     });
 }

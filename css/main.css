@@ -455,6 +455,7 @@ button:hover {
     background-color: #222;
     border-radius: 8px;
     margin-top: 20px;
+    margin-bottom: 30px; /* Increase this value for more space at the bottom */
     padding: 15px;
     position: relative;
     border: 1px solid #444;
@@ -476,6 +477,7 @@ button:hover {
     border: 1px solid #555;
     border-radius: 4px;
     padding: 8px;
+    margin-bottom: 15px; /* Add space between textarea and toggle button */
     font-family: 'Courier New', monospace;
     resize: vertical;
     font-size: 0.9rem;
@@ -497,8 +499,10 @@ button:hover {
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
+    margin-bottom: 5px; /* Add a bit of space below the button */
     font-size: 0.9rem;
     transition: all 0.3s ease;
+    display: block; /* Make it a block element */
 }
 
 .toggle-notes:hover {
