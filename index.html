@@ -17,7 +17,7 @@
     <div class="container">
         <!-- Main Video Element -->
         <div id="main-video-wrapper" class="video-wrapper">
-            <video id="murder-video" poster="images/murderposter.jpg" controls>
+            <video id="murder-video" poster="images/murderposter.jpg" controls loop>
                 <source src="v/murder1.mp4" type="video/mp4">
                 <track kind="subtitles" src="captions/cap1.vtt" label="English" default>
             </video>
@@ -70,6 +70,39 @@
         <div id="reveal-box" class="reveal-box">
             <h2>The Murderer is...</h2>
             <p>(Find out at the end of video)</p>
+        </div>
+
+        <!-- Audio Playlist Section -->
+        <div class="audio-section info-box">
+            <h2>Murder Mystery Playlist</h2>
+            <div class="playlist-container">
+                <div class="track-item">
+                    <p class="track-name">1. Scary Theme</p>
+                    <audio class="playlist-audio" controls>
+                        <source src="audio/scary-horror-house-evil-dark-music-288129.mp3" type="audio/mpeg">
+                        <source src="audio/scary-horror-house-evil-dark-music-288129.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <div class="track-item">
+                    <p class="track-name">2. Dark Ambient</p>
+                    <audio class="playlist-audio" controls>
+                        <source src="audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.mp3" type="audio/mpeg">
+                        <source src="audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <div class="track-item">
+                    <p class="track-name">3. Creepy Music</p>
+                    <audio class="playlist-audio" controls>
+                        <source src="audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.mp3" type="audio/mpeg">
+                        <source src="audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.ogg" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
         </div>
 
         <button id="reveal-murderer-btn" class="hidden">Reveal Murderer</button>

@@ -57,6 +57,41 @@
     animation: glowEffect 3s ease-in-out;
 }
 
+/* Stronger glow effect for the killer reveal */
+@keyframes killerGlowEffect {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 70px rgba(255, 0, 0, 1);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+}
+
+/* Apply this class when revealing the killer */
+.killer-glow {
+    animation: killerGlowEffect 3s ease-in-out;
+}
+
+/* Also make the text color more intense when glowing */
+.killer-glow h2, .killer-glow h3 {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+/* Make the text in the killer UI pulsate */
+@keyframes textPulsate {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Apply to killer profile text for more dramatic effect */
+.killer-text-effect {
+    animation: textPulsate 2s infinite;
+}
 
 /* Body Styling */
 body {
@@ -182,26 +217,6 @@ button:hover {
     text-align: center;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .video-wrapper {
-        min-width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .ui-wrapper {
-        min-width: 100%;
-        margin-top: 20px;
-    }
-}
-
-/* Add these CSS rules to your main.css file */
-
 /* Blood splatter decoration */
 .blood-splatter {
     position: absolute;
@@ -278,42 +293,6 @@ button:hover {
 .svg-element {
     width: 100%;
     height: 100%;
-}
-
-/* Stronger glow effect for the killer reveal */
-@keyframes killerGlowEffect {
-    0% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
-    }
-    50% {
-        box-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 70px rgba(255, 0, 0, 1);
-    }
-    100% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
-    }
-}
-
-/* Apply this class when revealing the killer */
-.killer-glow {
-    animation: killerGlowEffect 3s ease-in-out;
-}
-
-/* Also make the text color more intense when glowing */
-.killer-glow h2, .killer-glow h3 {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-}
-
-/* Make the text in the killer UI pulsate */
-@keyframes textPulsate {
-    0% { opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { opacity: 0.8; }
-}
-
-/* Apply to killer profile text for more dramatic effect */
-.killer-text-effect {
-    animation: textPulsate 2s infinite;
 }
 
 /* Blood drop animation */
@@ -455,7 +434,7 @@ button:hover {
     background-color: #222;
     border-radius: 8px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Add space at the bottom */
     padding: 15px;
     position: relative;
     border: 1px solid #444;
@@ -477,7 +456,7 @@ button:hover {
     border: 1px solid #555;
     border-radius: 4px;
     padding: 8px;
-    margin-bottom: 10px; 
+    margin-bottom: 15px; /* Add space between textarea and button */
     font-family: 'Courier New', monospace;
     resize: vertical;
     font-size: 0.9rem;
@@ -499,7 +478,7 @@ button:hover {
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 5px; /* Add space below the button */
     font-size: 0.9rem;
     transition: all 0.3s ease;
     display: block; /* Make it a block element */
@@ -507,4 +486,72 @@ button:hover {
 
 .toggle-notes:hover {
     background-color: #444;
+}
+
+/* Audio playlist styling */
+.audio-section {
+    margin-top: 25px;
+}
+
+.audio-section h2 {
+    font-size: 1.4rem;
+    color: #d9534f;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.playlist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.track-item {
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.track-name {
+    margin-bottom: 8px;
+    color: #f1f1f1;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* Custom audio controls styling */
+.playlist-audio {
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    background-color: #222;
+}
+
+/* Audio player focus styles */
+.playlist-audio:focus {
+    outline: 1px solid #d9534f;
+}
+
+/* Make sure only one audio plays at a time */
+.playlist-audio.playing {
+    box-shadow: 0 0 10px rgba(217, 83, 79, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .video-wrapper {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .ui-wrapper {
+        min-width: 100%;
+        margin-top: 20px;
+    }
 }
