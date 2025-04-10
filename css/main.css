@@ -279,3 +279,39 @@ button:hover {
     width: 100%;
     height: 100%;
 }
+
+/* Stronger glow effect for the killer reveal */
+@keyframes killerGlowEffect {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 70px rgba(255, 0, 0, 1);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+}
+
+/* Apply this class when revealing the killer */
+.killer-glow {
+    animation: killerGlowEffect 3s ease-in-out;
+}
+
+/* Also make the text color more intense when glowing */
+.killer-glow h2, .killer-glow h3 {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+/* Make the text in the killer UI pulsate */
+@keyframes textPulsate {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Apply to killer profile text for more dramatic effect */
+.killer-text-effect {
+    animation: textPulsate 2s infinite;
+}
