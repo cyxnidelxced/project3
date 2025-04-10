@@ -15,99 +15,97 @@
     </header>
 
     <div class="container">
-        <!-- Main Video Element -->
-        <div id="main-video-wrapper" class="video-wrapper">
-            <video id="murder-video" poster="images/murderposter.jpg" controls loop>
-                <source src="v/murder1.mp4" type="video/mp4">
-                <track kind="subtitles" src="captions/cap1.vtt" label="English" default>
-            </video>
-        </div>
-        
-    <!-- Reveal Murderer Video Element (hidden initially) -->
-    <div id="reveal-video-wrapper" class="video-wrapper hidden">
-        <video id="reveal-video" controls autoplay muted>
-            <source src="v/murder2.mp4" type="video/mp4">
-            <track kind="subtitles" src="captions/cap2.vtt" label="English" default>
-        </video>
-    </div>
-
-    <!-- Interactive UI Elements -->
-    <div class="ui-wrapper">
-        <!-- Suspects Heading -->
-        <h2 id="suspects-heading">The Suspects</h2>
-        <div class="button-container">
-            <button id="friend-btn" class="suspect-btn">Friend</button>
-            <button id="roommate-btn" class="suspect-btn">Roommate</button>
-            <button id="boyfriend-btn" class="suspect-btn">Boyfriend</button>
-        </div>
-
-        <!-- Victim Profile (default) -->
-        <div id="victim-info" class="info-box">
-            <h2>Victim Profile</h2>
-            <div id="victim-details" class="suspect-profile">
-                <h3 id="victim-name">Maddie</h3>
-                <p id="victim-description">A beauty vlogger who was found strangled to death.</p>
-                <p id="victim-motive">Motive: Not applicable</p>
-                <p id="victim-evidence">Evidence: Under investigation</p>
+        <!-- Left Side (Videos and Audio) -->
+        <div class="left-content">
+            <!-- Main Video Element -->
+            <div id="main-video-wrapper" class="video-wrapper">
+                <video id="murder-video" poster="images/murderposter.jpg" controls loop>
+                    <source src="v/murder1.mp4" type="video/mp4">
+                    <track kind="subtitles" src="captions/cap1.vtt" label="English" default>
+                </video>
             </div>
-        </div>
-
-        <!-- Suspect Profiles (initially hidden) -->
-        <div id="suspect-info" class="info-box hidden">
-            <h2>Suspect Profiles</h2>
-            <div id="suspect-details" class="suspect-profile">
-                <h3 id="suspect-name">No suspect yet...</h3>
-                <p id="suspect-description">Waiting for the story to unfold...</p>
-                <p id="suspect-motive">Motive: Not available</p>
+            
+            <!-- Reveal Murderer Video Element (hidden initially) -->
+            <div id="reveal-video-wrapper" class="video-wrapper hidden">
+                <video id="reveal-video" controls autoplay muted>
+                    <source src="v/murder2.mp4" type="video/mp4">
+                    <track kind="subtitles" src="captions/cap2.vtt" label="English" default>
+                </video>
             </div>
-        </div>
 
-        <div id="clue-box" class="info-box">
-            <h2>Clue</h2>
-            <p id="clue-text">Waiting for a clue to appear...</p>
-        </div>
-
-        <div id="reveal-box" class="reveal-box">
-            <h2>The Murderer is...</h2>
-            <p>(Find out at the end of video)</p>
-        </div>
-
-        <!-- Audio Playlist Section -->
-        <div class="audio-section info-box">
-            <h2>Murder Mystery Playlist</h2>
-            <div class="playlist-container">
-                <div class="track-item">
-                    <p class="track-name">1. Scary Theme</p>
-                    <audio class="playlist-audio" controls>
+            <!-- Audio Playlist Section -->
+            <div class="audio-section info-box">
+                <h2>Murder Mystery Playlist</h2>
+                <p class="audio-description">Select a track from the dropdown to enhance your murder mystery experience.</p>
+                
+                <div class="single-audio-player">
+                    <div class="track-selector">
+                        <label for="track-dropdown">Choose a track:</label>
+                        <select id="track-dropdown" class="track-dropdown">
+                            <option value="scary-theme">1. Scary Theme</option>
+                            <option value="dark-ambient">2. Dark Ambient</option>
+                            <option value="creepy-music">3. Creepy Music Box</option>
+                        </select>
+                    </div>
+                    
+                    <div class="current-track-info">
+                        <h3 id="current-track-title">Scary Theme</h3>
+                        <p id="current-track-description">A haunting melody that captures the chill of a crime scene investigation.</p>
+                    </div>
+                    
+                    <audio id="main-audio-player" controls>
                         <source src="audio/scary-horror-house-evil-dark-music-288129.mp3" type="audio/mpeg">
                         <source src="audio/scary-horror-house-evil-dark-music-288129.ogg" type="audio/ogg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>
-                
-                <div class="track-item">
-                    <p class="track-name">2. Dark Ambient</p>
-                    <audio class="playlist-audio" controls>
-                        <source src="audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.mp3" type="audio/mpeg">
-                        <source src="audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.ogg" type="audio/ogg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                
-                <div class="track-item">
-                    <p class="track-name">3. Creepy Music</p>
-                    <audio class="playlist-audio" controls>
-                        <source src="audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.mp3" type="audio/mpeg">
-                        <source src="audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.ogg" type="audio/ogg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
             </div>
         </div>
 
-        <button id="reveal-murderer-btn" class="hidden">Reveal Murderer</button>
-        <button id="go-back-btn" class="hidden">Go Back to Main Video</button>
-    </div>
+        <!-- Interactive UI Elements -->
+        <div class="ui-wrapper">
+            <!-- Suspects Heading -->
+            <h2 id="suspects-heading">The Suspects</h2>
+            <div class="button-container">
+                <button id="friend-btn" class="suspect-btn">Friend</button>
+                <button id="roommate-btn" class="suspect-btn">Roommate</button>
+                <button id="boyfriend-btn" class="suspect-btn">Boyfriend</button>
+            </div>
 
+            <!-- Victim Profile (default) -->
+            <div id="victim-info" class="info-box">
+                <h2>Victim Profile</h2>
+                <div id="victim-details" class="suspect-profile">
+                    <h3 id="victim-name">Maddie</h3>
+                    <p id="victim-description">A beauty vlogger who was found strangled to death.</p>
+                    <p id="victim-motive">Motive: Not applicable</p>
+                    <p id="victim-evidence">Evidence: Under investigation</p>
+                </div>
+            </div>
+
+            <!-- Suspect Profiles (initially hidden) -->
+            <div id="suspect-info" class="info-box hidden">
+                <h2>Suspect Profiles</h2>
+                <div id="suspect-details" class="suspect-profile">
+                    <h3 id="suspect-name">No suspect yet...</h3>
+                    <p id="suspect-description">Waiting for the story to unfold...</p>
+                    <p id="suspect-motive">Motive: Not available</p>
+                </div>
+            </div>
+
+            <div id="clue-box" class="info-box">
+                <h2>Clue</h2>
+                <p id="clue-text">Waiting for a clue to appear...</p>
+            </div>
+
+            <div id="reveal-box" class="reveal-box">
+                <h2>The Murderer is...</h2>
+                <p>(Find out at the end of video)</p>
+            </div>
+
+            <button id="reveal-murderer-btn" class="hidden">Reveal Murderer</button>
+            <button id="go-back-btn" class="hidden">Go Back to Main Video</button>
+        </div>
+    </div>
 </body>
 </html>

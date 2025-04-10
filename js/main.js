@@ -243,6 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupBloodDropsAnimation();
     setupCrimeSceneTape();
     setupNoteTakingSystem();
+    
+    // Add the audio playlist functionality
+    setupAudioPlaylist();
 });
 
 // Define the function to add SVG decorations
@@ -523,4 +526,126 @@ function setupNoteTakingSystem() {
         notesTextarea.classList.toggle('hidden');
         toggleButton.textContent = notesTextarea.classList.contains('hidden') ? 'Show Notes' : 'Hide Notes';
     });
+}
+
+// Function to set up the audio playlist functionality with dropdown
+function setupAudioPlaylist() {
+    // Get the audio element
+    const audioPlayer = document.getElementById('main-audio-player');
+    
+    // Get the dropdown element
+    const trackDropdown = document.getElementById('track-dropdown');
+    
+    // Get the track info elements
+    const trackTitle = document.getElementById('current-track-title');
+    const trackDescription = document.getElementById('current-track-description');
+    
+    // Track data with paths and descriptions
+    const tracks = {
+        'scary-theme': {
+            title: 'Scary Theme',
+            description: 'A haunting melody that captures the chill of a crime scene investigation.',
+            mp3: 'audio/scary-horror-house-evil-dark-music-288129.mp3',
+            ogg: 'audio/scary-horror-house-evil-dark-music-288129.ogg'
+        },
+        'dark-ambient': {
+            title: 'Dark Ambient',
+            description: 'Atmospheric sounds perfect for examining clues and pondering motives.',
+            mp3: 'audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.mp3',
+            ogg: 'audio/dark-ambient-horror-cinematic-halloween-atmosphere-scary-118585.ogg'
+        },
+        'creepy-music': {
+            title: 'Creepy Music Box',
+            description: 'A disturbing music box melody that hints at the twisted mind of the murderer.',
+            mp3: 'audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.mp3',
+            ogg: 'audio/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.ogg'
+        }
+    };
+    
+    // Function to change the track
+    function changeTrack(trackId) {
+        // Get the track data
+        const track = tracks[trackId];
+        
+        // Update the audio sources
+        const sources = audioPlayer.getElementsByTagName('source');
+        sources[0].src = track.mp3;
+        sources[1].src = track.ogg;
+        
+        // Update the track info
+        trackTitle.textContent = track.title;
+        trackDescription.textContent = track.description;
+        
+        // Reload the audio player with the new sources
+        audioPlayer.load();
+        
+        // Add visual feedback
+        const playerContainer = document.querySelector('.single-audio-player');
+        playerContainer.classList.add('playing-now');
+        
+        // Remove the effect after a delay
+        setTimeout(() => {
+            playerContainer.classList.remove('playing-now');
+        }, 2000);
+    }
+    
+    // Handle dropdown change event
+    trackDropdown.addEventListener('change', () => {
+        const selectedTrack = trackDropdown.value;
+        changeTrack(selectedTrack);
+        
+        // If the player was playing before, start playing the new track
+        const wasPlaying = !audioPlayer.paused;
+        if (wasPlaying) {
+            audioPlayer.play();
+        }
+    });
+    
+    // Handle play event for visual feedback
+    audioPlayer.addEventListener('play', () => {
+        const playerContainer = document.querySelector('.single-audio-player');
+        playerContainer.classList.add('playing-now');
+    });
+    
+    // Handle pause event for visual feedback
+    audioPlayer.addEventListener('pause', () => {
+        const playerContainer = document.querySelector('.single-audio-player');
+        playerContainer.classList.remove('playing-now');
+    });
+    
+    // Handle ended event
+    audioPlayer.addEventListener('ended', () => {
+        const playerContainer = document.querySelector('.single-audio-player');
+        playerContainer.classList.remove('playing-now');
+    });
+    
+    // Connect with video elements to pause audio when videos play
+    const mainVideo = document.getElementById('murder-video');
+    const revealVideo = document.getElementById('reveal-video');
+    
+    [mainVideo, revealVideo].forEach(video => {
+        video.addEventListener('play', () => {
+            // Pause the audio player when a video plays
+            audioPlayer.pause();
+        });
+    });
+    
+    // Create a theme toggle button
+    const audioSection = document.querySelector('.audio-section');
+    const themeToggle = document.createElement('div');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = `
+        <button id="toggle-theme">Toggle Spooky Mode</button>
+    `;
+    
+    audioSection.appendChild(themeToggle);
+    
+    // Add event listener to the theme toggle button
+    document.getElementById('toggle-theme').addEventListener('click', () => {
+        document.body.classList.toggle('extra-spooky');
+        
+        // Add CSS class to the audio player for visual effect
+        audioPlayer.classList.toggle('spooky-player');
+    });
+
 }

@@ -120,11 +120,19 @@ body {
     flex-wrap: wrap;
 }
 
-/* Video Wrapper Styling */
-.video-wrapper {
+/* Left content container */
+.left-content {
     flex: 1;
     min-width: 50%;
     max-width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Video Wrapper Styling */
+.video-wrapper {
+    flex: 1;
+    min-width: 100%;
     position: relative;
     overflow: hidden; /* Ensure the content stays within the bounds of the container */
     background: #000; /* Fallback background in case video doesn't load */
@@ -488,54 +496,218 @@ button:hover {
     background-color: #444;
 }
 
-/* Audio playlist styling */
+/* Audio Section Styling */
 .audio-section {
-    margin-top: 25px;
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .audio-section h2 {
-    font-size: 1.4rem;
+    text-align: center;
     color: #d9534f;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.audio-description {
+    color: #ddd;
     margin-bottom: 15px;
+    font-size: 0.95rem;
     text-align: center;
 }
 
-.playlist-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Single Audio Player Styling */
+.single-audio-player {
+    background-color: #222;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative; /* Needed for the blood drip effect */
 }
 
-.track-item {
+/* Track Selector */
+.track-selector {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.track-selector label {
+    color: #ddd;
+    font-size: 1rem;
+    margin-right: 10px;
+    min-width: 120px;
+}
+
+.track-dropdown {
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.track-dropdown:hover, .track-dropdown:focus {
+    background-color: #444;
+    border-color: #d9534f;
+}
+
+.track-dropdown option {
+    background-color: #333;
+    color: #f4f4f4;
+    padding: 8px;
+}
+
+/* Current Track Info */
+.current-track-info {
+    margin-bottom: 15px;
+    padding: 10px;
     background-color: #2a2a2a;
     border-radius: 6px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-left: 3px solid #d9534f;
 }
 
-.track-name {
+.current-track-info h3 {
+    color: #d9534f;
     margin-bottom: 8px;
-    color: #f1f1f1;
-    font-size: 0.95rem;
-    font-weight: bold;
+    font-size: 1.05rem;
 }
 
-/* Custom audio controls styling */
-.playlist-audio {
+.current-track-info p {
+    color: #f4f4f4;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Audio Player */
+#main-audio-player {
     width: 100%;
-    height: 30px;
+    height: 40px; /* Slightly larger for better usability */
     border-radius: 4px;
-    background-color: #222;
+    background-color: #333;
 }
 
-/* Audio player focus styles */
-.playlist-audio:focus {
+#main-audio-player:focus {
     outline: 1px solid #d9534f;
 }
 
-/* Make sure only one audio plays at a time */
-.playlist-audio.playing {
-    box-shadow: 0 0 10px rgba(217, 83, 79, 0.7);
+/* Playing State Effects */
+.playing-now {
+    animation: pulseEffect 2s infinite;
+}
+
+@keyframes pulseEffect {
+    0% { box-shadow: 0 0 5px rgba(217, 83, 79, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(217, 83, 79, 0.7); }
+    100% { box-shadow: 0 0 5px rgba(217, 83, 79, 0.3); }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#toggle-theme {
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#toggle-theme:hover {
+    background-color: #444;
+    border-color: #d9534f;
+}
+
+/* Extra Spooky Mode Styles */
+body.extra-spooky {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.9), rgba(25, 0, 0, 1));
+}
+
+body.extra-spooky .single-audio-player {
+    background-color: #1a0000;
+    box-shadow: 0 0 20px rgba(217, 83, 79, 0.4);
+}
+
+body.extra-spooky .current-track-info {
+    background-color: #2a0000;
+    border-left: 3px solid #ff0000;
+}
+
+body.extra-spooky .current-track-info h3 {
+    color: #ff0000;
+    text-shadow: 0 0 5px #ff0000;
+}
+
+body.extra-spooky #main-audio-player {
+    background-color: #300;
+}
+
+body.extra-spooky .track-dropdown {
+    background-color: #300;
+    border-color: #600;
+}
+
+body.extra-spooky .track-dropdown:hover,
+body.extra-spooky .track-dropdown:focus {
+    background-color: #400;
+    border-color: #f00;
+}
+
+/* Animated blood drip from the audio player in spooky mode */
+body.extra-spooky .single-audio-player::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 15px;
+    background-color: #8a0303;
+    border-radius: 0 0 4px 4px;
+    animation: dripping 4s infinite;
+    opacity: 0;
+}
+
+@keyframes dripping {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+    10% {
+        opacity: 0.9;
+        height: 5px;
+    }
+    40% {
+        height: 15px;
+        transform: translateX(-50%) translateY(0);
+        border-radius: 0 0 4px 4px;
+    }
+    50% {
+        height: 10px;
+        transform: translateX(-50%) translateY(15px);
+        border-radius: 50%;
+        opacity: 0.7;
+    }
+    60% {
+        opacity: 0;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+    }
 }
 
 /* Responsive Design */
@@ -545,7 +717,7 @@ button:hover {
         align-items: center;
     }
 
-    .video-wrapper {
+    .left-content {
         min-width: 100%;
         margin-bottom: 20px;
     }
@@ -553,5 +725,14 @@ button:hover {
     .ui-wrapper {
         min-width: 100%;
         margin-top: 20px;
+    }
+    
+    .track-selector {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .track-selector label {
+        margin-bottom: 5px;
     }
 }
