@@ -60,6 +60,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
+    // Function to trigger killer reveal glow effect - more intense and longer duration
+    function triggerKillerGlowEffect() {
+        // Apply the glow effect to the entire UI
+        const uiWrapper = document.querySelector('.ui-wrapper');
+        const infoBoxes = document.querySelectorAll('.info-box');
+        const heading = document.getElementById('suspects-heading');
+            
+        // Add the glowing class to trigger the animation
+        uiWrapper.classList.add('glowing');
+        heading.classList.add('glowing');
+        infoBoxes.forEach(box => box.classList.add('glowing'));
+    
+        // Also add glow to any visible clue elements
+        const clueBox = document.getElementById('clue-box');
+        if (clueBox) {
+            clueBox.classList.add('glowing');
+        }
+        
+        // Keep the glow effect longer for the killer reveal (5 seconds)
+        setTimeout(() => {
+            uiWrapper.classList.remove('glowing');
+            heading.classList.remove('glowing');
+            infoBoxes.forEach(box => box.classList.remove('glowing'));
+            if (clueBox) {
+                clueBox.classList.remove('glowing');
+            }
+        }, 5000);
+    }
+
     // Event listener for time updates on the video
     video.addEventListener('timeupdate', () => {
         let currentTime = video.currentTime;
@@ -126,6 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change in clue text
         clueText.textContent = 'Teddy Bear Ribbon';
 
+        // Apply the killer reveal glow effect
+        triggerKillerGlowEffect();
+
         // Ensure the reveal video is unmuted (if captions are enabled)
         const revealVideo = document.getElementById('reveal-video');
         revealVideo.muted = false;
@@ -146,6 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
     revealVideo.addEventListener('ended', () => {
         // Show Go Back button more prominently if needed
         goBackButton.classList.remove('hidden');
+        
+        // Apply the killer glow effect again when the video ends
+        triggerKillerGlowEffect();
         
         // Do not automatically switch back to main video
         // Do not automatically play the main video
