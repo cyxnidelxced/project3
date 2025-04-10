@@ -199,3 +199,312 @@ button:hover {
         margin-top: 20px;
     }
 }
+
+/* Add these CSS rules to your main.css file */
+
+/* Blood splatter decoration */
+.blood-splatter {
+    position: absolute;
+    opacity: 0.7;
+    z-index: -1;
+    transition: opacity 0.5s ease;
+}
+
+.blood-splatter.top-right {
+    top: 20px;
+    right: 30px;
+    width: 150px;
+    transform: rotate(45deg);
+}
+
+.blood-splatter.bottom-left {
+    bottom: 40px;
+    left: 20px;
+    width: 180px;
+    transform: rotate(-15deg);
+}
+
+/* Make blood splatters appear on important moments */
+.blood-splatter.reveal {
+    opacity: 0.9;
+    animation: pulse 2s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.9; transform: scale(1); }
+}
+
+/* Knife decoration */
+.knife {
+    position: absolute;
+    width: 150px;
+    opacity: 0.8;
+    transform: rotate(25deg);
+    top: 20px;
+    left: 20px;
+    z-index: -1;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+}
+
+/* Bloody handprint */
+.handprint {
+    position: absolute;
+    width: 120px;
+    opacity: 0.6;
+    z-index: -1;
+    transition: opacity 0.5s ease;
+}
+
+.handprint.right-side {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%) rotate(15deg);
+}
+
+/* Make handprint appear when murderer is revealed */
+.handprint.reveal {
+    opacity: 0.9;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.9; }
+}
+
+/* Ensure SVG elements display correctly */
+.svg-element {
+    width: 100%;
+    height: 100%;
+}
+
+/* Stronger glow effect for the killer reveal */
+@keyframes killerGlowEffect {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 70px rgba(255, 0, 0, 1);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 0, 0, 0.8);
+    }
+}
+
+/* Apply this class when revealing the killer */
+.killer-glow {
+    animation: killerGlowEffect 3s ease-in-out;
+}
+
+/* Also make the text color more intense when glowing */
+.killer-glow h2, .killer-glow h3 {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+/* Make the text in the killer UI pulsate */
+@keyframes textPulsate {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Apply to killer profile text for more dramatic effect */
+.killer-text-effect {
+    animation: textPulsate 2s infinite;
+}
+
+/* Blood drop animation */
+.blood-drop {
+    position: fixed;
+    top: -20px;
+    width: 8px;
+    height: 20px;
+    background-color: #8a0303;
+    border-radius: 0 0 4px 4px;
+    z-index: -1;
+    animation: falling-drop linear forwards;
+    opacity: 0.9;
+}
+
+@keyframes falling-drop {
+    0% {
+        transform: translateY(0) scaleY(1);
+        opacity: 0.9;
+    }
+    80% {
+        transform: translateY(calc(100vh - 20px)) scaleY(1);
+        opacity: 0.9;
+    }
+    90% {
+        transform: translateY(calc(100vh - 20px)) scaleY(0.3) scaleX(3);
+        opacity: 0.9;
+        border-radius: 50% 50% 50% 50%;
+    }
+    100% {
+        transform: translateY(calc(100vh - 20px)) scaleY(0.1) scaleX(4);
+        opacity: 0.7;
+        border-radius: 50% 50% 50% 50%;
+    }
+}
+
+/* Variations for different sized drops */
+.blood-drop.small {
+    width: 4px;
+    height: 10px;
+}
+
+.blood-drop.large {
+    width: 10px;
+    height: 25px;
+}
+
+/* Crime scene tape borders */
+.crime-scene-border {
+    position: fixed;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        45deg,
+        #f8d900,
+        #f8d900 10px,
+        #000000 10px,
+        #000000 20px
+    );
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Top border */
+.crime-scene-border.top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    transform: translateY(-100%);
+    animation: slide-in-top 1s forwards;
+}
+
+/* Bottom border */
+.crime-scene-border.bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    transform: translateY(100%);
+    animation: slide-in-bottom 1s forwards;
+}
+
+/* Left border */
+.crime-scene-border.left {
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    transform: translateX(-100%);
+    animation: slide-in-left 1s forwards;
+}
+
+/* Right border */
+.crime-scene-border.right {
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    transform: translateX(100%);
+    animation: slide-in-right 1s forwards;
+}
+
+.crime-scene-border.visible {
+    opacity: 0.9;
+}
+
+/* Animations for the tape borders */
+@keyframes slide-in-top {
+    to {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+}
+
+@keyframes slide-in-bottom {
+    to {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+}
+
+@keyframes slide-in-left {
+    to {
+        transform: translateX(0);
+        opacity: 0.9;
+    }
+}
+
+@keyframes slide-in-right {
+    to {
+        transform: translateX(0);
+        opacity: 0.9;
+    }
+}
+
+/* Detective notes section */
+.note-section {
+    background-color: #222;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.note-section h3 {
+    font-size: 1.2rem;
+    color: #d9534f;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.note-section textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px; 
+    font-family: 'Courier New', monospace;
+    resize: vertical;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.note-section textarea:focus {
+    outline: none;
+    border-color: #d9534f;
+    box-shadow: 0 0 8px rgba(217, 83, 79, 0.5);
+}
+
+/* Toggle button for notes */
+.toggle-notes {
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: block; /* Make it a block element */
+}
+
+.toggle-notes:hover {
+    background-color: #444;
+}
