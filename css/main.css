@@ -361,8 +361,6 @@ button:hover {
     height: 25px;
 }
 
-/* Add to your main.css file */
-
 /* Crime scene tape borders */
 .crime-scene-border {
     position: fixed;
@@ -450,4 +448,59 @@ button:hover {
         transform: translateX(0);
         opacity: 0.9;
     }
+}
+
+/* Detective notes section */
+.note-section {
+    background-color: #222;
+    border-radius: 8px;
+    margin-top: 20px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.note-section h3 {
+    font-size: 1.2rem;
+    color: #d9534f;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.note-section textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: 'Courier New', monospace;
+    resize: vertical;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.note-section textarea:focus {
+    outline: none;
+    border-color: #d9534f;
+    box-shadow: 0 0 8px rgba(217, 83, 79, 0.5);
+}
+
+/* Toggle button for notes */
+.toggle-notes {
+    background-color: #333;
+    color: #f4f4f4;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.toggle-notes:hover {
+    background-color: #444;
 }
